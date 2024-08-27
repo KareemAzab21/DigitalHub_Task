@@ -39,12 +39,14 @@ This RESTful API allows users to manage tasks with functionalities for creating,
 
 -   **Endpoint:** `PUT /api/tasks/{id}`
 -   **Request Body:**
--   {\
-  "title": "Complete Documentation",\
-  "description": "Write and review the project documentation before submission.",\
-  "status": "NotStarted",\
-  "dueDate": "2024-09-15T23:59:59"\
-}
+  ```json
+  {
+    "title": "Complete Documentation",
+    "description": "Write and review the project documentation before submission.",
+    "status": "NotStarted",
+    "dueDate": "2024-09-15T23:59:59"
+  }
+-  
 
 -   **Description:** Updates an existing task identified by its unique identifier. The request body should include the updated `Title`, `Description`, `Status`, and `DueDate`.
 
