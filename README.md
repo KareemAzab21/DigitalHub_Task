@@ -7,7 +7,7 @@ This RESTful API allows users to manage tasks with functionalities for creating,
 ## API Endpoints
 
 ### Create Task
-- **Endpoint:** `POST /api/tasks`
+- **Endpoint:** `POST /tasks`
 - **Request Body:**
   ```json
   {
@@ -19,7 +19,7 @@ This RESTful API allows users to manage tasks with functionalities for creating,
 
 ### Get All Tasks
 
--   **Endpoint:** `GET /api/tasks`
+-   **Endpoint:** `GET /tasks`
 -   **Query Parameters (Optional):**
     -   `isCompleted` (bool): Filter tasks by completion status.
     -   `dueDate` (DateTime): Filter tasks by due date.
@@ -32,12 +32,12 @@ This RESTful API allows users to manage tasks with functionalities for creating,
 
 ### Get Task by Id
 
--   **Endpoint:** `GET /api/tasks/{id}`
+-   **Endpoint:** `GET /tasks/{id}`
 -   **Description:** Retrieves a task by its unique identifier.
 
 ### Update Task
 
--   **Endpoint:** `PUT /api/tasks/{id}`
+-   **Endpoint:** `PUT /tasks/{id}`
 -   **Request Body:**
   ```json
 {
@@ -53,7 +53,7 @@ This RESTful API allows users to manage tasks with functionalities for creating,
 
 ### Delete Task
 
--   **Endpoint:** `DELETE /api/tasks/{id}`
+-   **Endpoint:** `DELETE /tasks/{id}`
 -   **Description:** Deletes a task by its unique identifier.
 
 Validation Rules
