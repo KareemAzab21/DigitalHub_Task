@@ -43,7 +43,7 @@ namespace DigitalHub_Task.Controllers
                 return BadRequest("DueDate cannot be set in the past.");
             }
 
-            // Save the task
+
             _context.Tasks.Add(task);
             await _context.SaveChangesAsync();
 
@@ -126,36 +126,50 @@ namespace DigitalHub_Task.Controllers
             return task;
         }
 
-        // PUT:tasks/{id}
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTask(Guid id, DigitalHub_Task.Models.Entity.Task updatedTask)
+        public class TaskUpdateDto
         {
-            if (id != updatedTask.Id)
+            public string Title { get; set; }
+            public string Description { get; set; }
+            public string Status { get; set; }
+            public DateTime? DueDate { get; set; }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTask(Guid id, [FromBody] Dto updateDto)
+        {
+            if (updateDto == null)
             {
-                return BadRequest();
+                return BadRequest("Invalid data.");
             }
 
+            // Find the existing task
             var task = await _context.Tasks.FindAsync(id);
             if (task == null)
             {
                 return NotFound();
             }
 
-            if (updatedTask.DueDate.HasValue && updatedTask.DueDate.Value < DateTime.UtcNow)
+            // Validate DueDate
+            if (updateDto.DueDate.HasValue && updateDto.DueDate.Value < DateTime.UtcNow)
             {
                 return BadRequest("DueDate cannot be set in the past.");
             }
 
-            task.Title = updatedTask.Title;
-            task.Description = updatedTask.Description;
-            task.Status = updatedTask.Status;
-            task.DueDate = updatedTask.DueDate;
+       
+            task.Title = updateDto.Title ?? task.Title;  // Only update if new value is provided
+            task.Description = updateDto.Description ?? task.Description;
+            task.Status = Enum.TryParse<DigitalHub_Task.Models.Entity.TaskStatus>(updateDto.Status, true, out var status) ? status : DigitalHub_Task.Models.Entity.TaskStatus.NotStarted;
+            task.DueDate = updateDto.DueDate ?? task.DueDate;
+
 
             _context.Entry(task).State = EntityState.Modified;
+
+
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
+
 
         // DELETE: /tasks/{id}
         [HttpDelete("{id}")]
