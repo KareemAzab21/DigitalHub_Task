@@ -17,8 +17,34 @@ This RESTful API allows users to manage tasks with functionalities for creating,
     "dueDate": "2024-09-15T23:59:59"
   }
 
+### Get All Tasks
 
+-   **Endpoint:** `GET /api/tasks`
+-   **Query Parameters (Optional):**
+    -   `isCompleted` (bool): Filter tasks by completion status.
+    -   `dueDate` (DateTime): Filter tasks by due date.
+    -   `title` (string): Search tasks by title.
+    -   `sortBy` (string): Sort tasks by `CreatedAt` or `DueDate`.
+    -   `descending` (bool): Sort in descending order.
+    -   `page` (int): Page number for pagination.
+    -   `pageSize` (int): Number of items per page.
+-   **Description:** Retrieves all tasks with optional filtering, sorting, and pagination.
 
+### Get Task by Id
+
+-   **Endpoint:** `GET /api/tasks/{id}`
+-   **Description:** Retrieves a task by its unique identifier.
+
+### Update Task
+
+-   **Endpoint:** `PUT /api/tasks/{id}`
+-   **Request Body:**
+-   {\
+  "title": "Complete Documentation",\
+  "description": "Write and review the project documentation before submission.",\
+  "status": "NotStarted",\
+  "dueDate": "2024-09-15T23:59:59"\
+}
 
 -   **Description:** Updates an existing task identified by its unique identifier. The request body should include the updated `Title`, `Description`, `Status`, and `DueDate`.
 
